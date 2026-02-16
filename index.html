@@ -3,61 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <style>
-        h1 {
-            text-align: center;
-        }
-
-        .absolute {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgb(84, 172, 254);
-            padding: 10px;
-        }
-
-        .absolute a {
-            margin-left: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            color: black;
-        }
-        .box{
-          width:200px;
-          padding:20px;
-          margin:20px;
-          broder:2px solidblack;
-          background-color:lightyellow;
-}
-.box{
-          width:200px;
-          padding:20px;
-          margin:20px;
-          broder:2px solidblack;
-          background-color:lightyellow;
-}
-
-
-
-    </style>
+    <title>web application</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
+    <span><img src="E:\IP Lab\resume _logo.jpg" alt="Resume Logo"width="50" height="50"></span>
     <h1>Build Your Own Resume</h1>
-
     <div class="absolute">
+        <select id="language" name="language">
+          <option value=""> Select Language</option>
+          <option value="english">English</option>
+          <option value="tamil">Tamil</option>
+          <option value="hindi">Hindi</option>
+          <option value="kanada">Kanada</option>
+        </select>
+        <button id="themeToggle">🌙</button>
         <a href="#">Login</a>
         <a href="#">Sign Up</a>
     </div>
     <h3 style="text-align:center;">Build professional outstanding resume  with our CV builder</h3>
-    <div class="box relative">
-<p> Create your resume</p>
-<div class="box relative">
-<p> Sample resumes</p>
-
+    <div class="button-container">
+        <div class ="box">
+            <a href="create.html" class="btn">Create your resume</a>
+        </div>
+     <div class="box">
+       <a href="sample resume.html" class="btn">Sample resume</a>
+     </div>
+      <div>
+         <div class ="box">
+            <a href="templates.html" class="btn">multiple templates</a>
+         </div>
+      </div>
+    </div> 
+    
+    
+    <div class="bottom-links">
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
 </div>
+
+
 </body>
 </html>
