@@ -1,0 +1,93 @@
+
+        h1 {
+            text-align: center;
+        }
+
+        .absolute {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+       
+        .absolute a {
+            background-color: rgb(84,172,254);
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            color: black;
+            display: inline-block;
+            
+        }
+        .button-container {
+           display: flex;          
+           justify-content: center; 
+           gap: 40px;              
+           margin-top: 50px;
+        }
+        .box{
+          width:200px;
+          padding:20px;
+          margin:20px;
+          border:2px solidblack;
+          background-color:rgb(102, 205, 240);
+          text-align: center;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgb(114, 176, 234);
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: rgb(185, 213, 237);
+    color: white;
+}
+.top-right {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;   
+}
+#themeToggle {
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+select {
+    width: 200px;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+.bottom-links {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.bottom-links a {
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    color: black;
+}
+
+.bottom-links a:hover {
+    color: rgb(84, 172, 254);
+}
+
+
+
+
+   
