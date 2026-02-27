@@ -86,7 +86,10 @@ select {
 .bottom-links a:hover {
     color: rgb(84, 172, 254);
 }
-
+.dark-mode {
+    background-color: black;
+    color: white;
+}
 
 
 
