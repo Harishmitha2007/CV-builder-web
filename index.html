@@ -29,9 +29,18 @@
                 <option>Hindi</option>
                 <option>Kannada</option>
             </select>
-            <button class="btn btn-dark ms-2">🌙</button>
-            <a href="#" class="ms-2">Login</a>
-            <a href="#" class="ms-2">Sign Up</a>
+             <div class="d-inline-block border rounded p-2 ms-2 bg-light">
+
+        <button class="btn btn-primary btn-sm me-2" onclick="openLogin()">
+            Login
+        </button>
+
+        <button class="btn btn-success btn-sm" onclick="openSignup()">
+            Sign Up
+        </button>
+
+    </div>
+
         </div>
 
     </div>
@@ -70,8 +79,54 @@
     </div>
 
 </div>
+<div id="loginModal" class="modal-box">
+    <div class="modal-content-box">
 
-<script src="js/script.js"></script>
+        <h3>Login</h3>
+
+        <form id="loginForm">
+
+            <input type="email" id="loginEmail" class="form-control mb-2" placeholder="Enter Email">
+
+            <input type="password" id="loginPassword" class="form-control mb-2" placeholder="Enter Password">
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+
+            <p id="loginError" class="text-danger mt-2"></p>
+
+        </form>
+
+        <button onclick="closeModal()" class="btn btn-secondary mt-2">Close</button>
+
+    </div>
+</div>
+
+<div id="signupModal" class="modal-box">
+    <div class="modal-content-box">
+
+        <h3>Signup</h3>
+
+        <form id="signupForm">
+
+            <input type="text" id="signupName" class="form-control mb-2" placeholder="Enter Name">
+
+            <input type="email" id="signupEmail" class="form-control mb-2" placeholder="Enter Email">
+
+            <input type="password" id="signupPassword" class="form-control mb-2" placeholder="Enter Password">
+
+            <button type="submit" class="btn btn-success w-100">Signup</button>
+
+            <p id="signupError" class="text-danger mt-2"></p>
+
+        </form>
+
+        <button onclick="closeSignup()" class="btn btn-secondary mt-2">Close</button>
+
+    </div>
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
