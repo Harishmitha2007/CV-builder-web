@@ -48,6 +48,15 @@ document.addEventListener("DOMContentLoaded", function () {
             let name = document.getElementById("name").value;
             let email = document.getElementById("email").value;
             let phone = document.getElementById("phone").value;
+            let skills = document.getElementById("skills").value;
+
+fetch("https://harishmithascv.infinityfreeapp.com/save.php", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: `name=${name}&email=${email}&phone=${phone}&skills=${skills}`
+})
 
             if (name === "" || email === "" || phone === "") {
                 alert("Please fill all fields");
