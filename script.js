@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const resumeForm = document.getElementById("resumeForm");
+    const form = document.getElementById("resumeForm");
 
-    if (!resumeForm) return;
-
-    resumeForm.addEventListener("submit", async function (e) {
+    form.addEventListener("submit", function (e) {
         e.preventDefault();
 
         let name = document.getElementById("name").value;
@@ -12,28 +10,21 @@ document.addEventListener("DOMContentLoaded", function () {
         let phone = document.getElementById("phone").value;
         let skills = document.getElementById("skills").value;
 
-        try {
-            let response = await fetch("https://harishmithacv.infinityfreeapp.com/save.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: new URLSearchParams({
-                    name,
-                    email,
-                    phone,
-                    skills
-                })
-            });
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "save.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-            let data = await response.text();
-            console.log("Server:", data);
-            alert(data);
+        xhr.onload = function () {
+            alert(this.responseText);
+            console.log(this.responseText);
+        };
 
-        } catch (err) {
-            console.error("Network Error:", err);
-            alert("Request failed (server not reachable)");
-        }
+        xhr.send(
+            "name=" + encodeURIComponent(name) +
+            "&email=" + encodeURIComponent(email) +
+            "&phone=" + encodeURIComponent(phone) +
+            "&skills=" + encodeURIComponent(skills)
+        );
     });
 
 });
