@@ -11,19 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("phone", document.getElementById("phone").value);
         formData.append("skills", document.getElementById("skills").value);
 
-        let xhr = new XMLHttpRequest();
-
-        xhr.open("POST", "https://harishmithacv.infinityfreeapp.com/save.php", true);
-
-        xhr.onload = function () {
-            alert(this.responseText);
-        };
-
-        xhr.onerror = function () {
-            alert("Request failed");
-        };
-
-        xhr.send(formData);
+    
     });
 
 });
