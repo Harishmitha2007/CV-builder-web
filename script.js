@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 🔐 Login Form Validation
+    // 🔐 Login Form
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
         loginForm.addEventListener("submit", function (e) {
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 📝 Signup Form Validation
+    // 📝 Signup Form
     const signupForm = document.getElementById("signupForm");
     if (signupForm) {
         signupForm.addEventListener("submit", function (e) {
@@ -39,8 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 📄 Resume Form → SAVE TO DATABASE + LOCAL STORAGE
+    // 📄 Resume Form → SEND TO PHP + DATABASE
     const resumeForm = document.getElementById("resumeForm");
+
     if (resumeForm) {
         resumeForm.addEventListener("submit", function (e) {
             e.preventDefault();
@@ -50,82 +51,73 @@ document.addEventListener("DOMContentLoaded", function () {
             let phone = document.getElementById("phone").value;
             let skills = document.getElementById("skills").value;
 
-fetch("https://harishmithascv.infinityfreeapp.com/save.php", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: `name=${name}&email=${email}&phone=${phone}&skills=${skills}`
-})
-
-            if (name === "" || email === "" || phone === "") {
+            // ⚠️ Validation
+            if (!name || !email || !phone || !skills) {
                 alert("Please fill all fields");
                 return;
             }
 
-            // 🔥 Send data to PHP backend
-            fetch("https://harishmithascv.infinityfreeapp.com/save.php", {
+            fetch("https://harishmithacv.infinityfreeapp.com/save.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: `name=${name}&email=${email}&phone=${phone}`
+                body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&skills=${encodeURIComponent(skills)}`
             })
             .then(res => res.text())
             .then(data => {
                 console.log("Server Response:", data);
 
-                if (data.includes("Saved")) {
-                    alert("Data saved successfully!");
+                alert(data);
 
-                    // Save locally also
-                    localStorage.setItem("resumeData", JSON.stringify({ name, email, phone }));
+                if (data.includes("Saved")) {
+                    localStorage.setItem("resumeData", JSON.stringify({
+                        name,
+                        email,
+                        phone,
+                        skills
+                    }));
 
                     window.location.href = "resume.html";
-                } else {
-                    alert("Error: " + data);
                 }
             })
             .catch(err => {
-                console.error(err);
+                console.error("Error:", err);
                 alert("Server error");
             });
         });
     }
 
-    // 📦 Load stored resume data
+    // 📦 Load resume data
     const storedData = JSON.parse(localStorage.getItem("resumeData"));
 
     if (storedData) {
         const name = document.getElementById("rName");
         const email = document.getElementById("rEmail");
         const phone = document.getElementById("rPhone");
-       
+        const skills = document.getElementById("rSkills");
 
         if (name) name.innerText = storedData.name;
         if (email) email.innerText = storedData.email;
         if (phone) phone.innerText = storedData.phone;
+        if (skills) skills.innerText = storedData.skills;
     }
 
 });
 
-// 🔓 Modal functions
+// 🔓 Modals
 function openLogin() {
-    const modal = document.getElementById("loginModal");
-    if (modal) modal.style.display = "flex";
+    document.getElementById("loginModal").style.display = "flex";
 }
 
 function closeModal() {
-    const modal = document.getElementById("loginModal");
-    if (modal) modal.style.display = "none";
+    document.getElementById("loginModal").style.display = "none";
 }
 
 function openSignup() {
-    const modal = document.getElementById("signupModal");
-    if (modal) modal.style.display = "flex";
+    document.getElementById("signupModal").style.display = "flex";
 }
 
 function closeSignup() {
-    const modal = document.getElementById("signupModal");
-    if (modal) modal.style.display = "none";
+    document.getElementById("signupModal").style.display = "none";
 }
