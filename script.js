@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("JS Loaded");
 
+    // 🌙 Theme Toggle
     const themeBtn = document.getElementById("themeToggle");
     if (themeBtn) {
         themeBtn.addEventListener("click", function () {
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // 🔐 Login Form Validation
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
         loginForm.addEventListener("submit", function (e) {
@@ -22,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // 📝 Signup Form Validation
     const signupForm = document.getElementById("signupForm");
     if (signupForm) {
         signupForm.addEventListener("submit", function (e) {
@@ -36,41 +39,68 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
- 
+    // 📄 Resume Form → SAVE TO DATABASE + LOCAL STORAGE
     const resumeForm = document.getElementById("resumeForm");
     if (resumeForm) {
         resumeForm.addEventListener("submit", function (e) {
             e.preventDefault();
 
-            const data = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                skills: document.getElementById("skills").value
-            };
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
 
-            console.log("Saving Data:", data);
+            if (name === "" || email === "" || phone === "") {
+                alert("Please fill all fields");
+                return;
+            }
 
-            localStorage.setItem("resumeData", JSON.stringify(data));
+            // 🔥 Send data to PHP backend
+            fetch("https://harishmithascv.infinityfreeapp.com/save.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `name=${name}&email=${email}&phone=${phone}`
+            })
+            .then(res => res.text())
+            .then(data => {
+                console.log("Server Response:", data);
 
-            window.location.href = "resume.html";
+                if (data.includes("Saved")) {
+                    alert("Data saved successfully!");
+
+                    // Save locally also
+                    localStorage.setItem("resumeData", JSON.stringify({ name, email, phone }));
+
+                    window.location.href = "resume.html";
+                } else {
+                    alert("Error: " + data);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Server error");
+            });
         });
     }
 
-  
+    // 📦 Load stored resume data
     const storedData = JSON.parse(localStorage.getItem("resumeData"));
 
     if (storedData) {
         const name = document.getElementById("rName");
         const email = document.getElementById("rEmail");
-        const skills = document.getElementById("rSkills");
+        const phone = document.getElementById("rPhone");
+       
 
         if (name) name.innerText = storedData.name;
         if (email) email.innerText = storedData.email;
-        if (skills) skills.innerText = storedData.skills;
+        if (phone) phone.innerText = storedData.phone;
     }
 
 });
 
+// 🔓 Modal functions
 function openLogin() {
     const modal = document.getElementById("loginModal");
     if (modal) modal.style.display = "flex";
