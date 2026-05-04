@@ -2,38 +2,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.getElementById("resumeForm");
 
-    if (!form) return;
-
-    form.addEventListener("submit", async function (e) {
+    form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        let name = document.getElementById("name").value;
-        let email = document.getElementById("email").value;
-        let phone = document.getElementById("phone").value;
-        let skills = document.getElementById("skills").value;
+        let formData = new FormData();
+        formData.append("name", document.getElementById("name").value);
+        formData.append("email", document.getElementById("email").value);
+        formData.append("phone", document.getElementById("phone").value);
+        formData.append("skills", document.getElementById("skills").value);
 
-        try {
-            let res = await fetch("https://harishmithacv.infinityfreeapp.com/save.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: new URLSearchParams({
-                    name,
-                    email,
-                    phone,
-                    skills
-                })
-            });
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "save.php", true);
 
-            let data = await res.text();
-            console.log(data);
-            alert(data);
+        xhr.onload = function () {
+            alert(this.responseText);
+        };
 
-        } catch (err) {
-            console.error("FAILED:", err);
-            alert("Request failed: server not reachable");
-        }
+        xhr.onerror = function () {
+            alert("Server unreachable");
+        };
+
+        xhr.send(formData);
     });
 
 });
