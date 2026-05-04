@@ -11,12 +11,14 @@
 <div class="container mt-5">
     <h2>Create Your Resume</h2>
 
-    <!-- ✅ YOUR FORM GOES HERE -->
     <form id="resumeForm">
 
-        <input type="text" id="name" class="form-control mb-3" placeholder="Enter Name">
+        <input type="text" id="name" name="name" class="form-control mb-3" placeholder="Enter Name" required>
 
-        <input type="email" id="email" class="form-control mb-3" placeholder="Enter Email">
+        <input type="email" id="email" name="email" class="form-control mb-3" placeholder="Enter Email" required>
+
+        <!-- ✅ ADDED PHONE FIELD -->
+        <input type="text" id="phone" name="phone" class="form-control mb-3" placeholder="Enter Phone" required>
 
         <textarea id="skills" class="form-control mb-3" placeholder="Enter Skills"></textarea>
 
