@@ -11,25 +11,25 @@ document.addEventListener("DOMContentLoaded", function () {
             let phone = document.getElementById("phone").value;
             let skills = document.getElementById("skills").value;
 
-            if (!name || !email || !phone || !skills) {
-                alert("Please fill all fields");
-                return;
-            }
-
-            fetch("save.php", {
+            fetch("https://harishmithacv.infinityfreeapp.com/save.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&skills=${encodeURIComponent(skills)}`
+                body: new URLSearchParams({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    skills: skills
+                })
             })
             .then(res => res.text())
             .then(data => {
                 console.log(data);
                 alert(data);
             })
-            .catch(err => {
-                console.log(err);
+            .catch(error => {
+                console.error("Error:", error);
                 alert("Request failed");
             });
         });
