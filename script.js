@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.getElementById("resumeForm");
 
-    form.addEventListener("submit", function (e) {
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         let name = document.getElementById("name").value;
@@ -10,21 +12,28 @@ document.addEventListener("DOMContentLoaded", function () {
         let phone = document.getElementById("phone").value;
         let skills = document.getElementById("skills").value;
 
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "save.php", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        try {
+            let res = await fetch("https://harishmithacv.infinityfreeapp.com/save.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams({
+                    name,
+                    email,
+                    phone,
+                    skills
+                })
+            });
 
-        xhr.onload = function () {
-            alert(this.responseText);
-            console.log(this.responseText);
-        };
+            let data = await res.text();
+            console.log(data);
+            alert(data);
 
-        xhr.send(
-            "name=" + encodeURIComponent(name) +
-            "&email=" + encodeURIComponent(email) +
-            "&phone=" + encodeURIComponent(phone) +
-            "&skills=" + encodeURIComponent(skills)
-        );
+        } catch (err) {
+            console.error("FAILED:", err);
+            alert("Request failed: server not reachable");
+        }
     });
 
 });
