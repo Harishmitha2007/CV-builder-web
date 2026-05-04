@@ -1,35 +1,38 @@
-const resumeForm = document.getElementById("resumeForm");
+document.addEventListener("DOMContentLoaded", function () {
 
-if (resumeForm) {
-    resumeForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
+    const resumeForm = document.getElementById("resumeForm");
 
-        let name = document.getElementById("name").value;
-        let email = document.getElementById("email").value;
-        let phone = document.getElementById("phone").value;
-        let skills = document.getElementById("skills").value;
+    if (resumeForm) {
+        resumeForm.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-        try {
-            let response = await fetch("save.php", {   // 🔥 IMPORTANT CHANGE
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let skills = document.getElementById("skills").value;
+
+            if (!name || !email || !phone || !skills) {
+                alert("Please fill all fields");
+                return;
+            }
+
+            fetch("save.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: new URLSearchParams({
-                    name,
-                    email,
-                    phone,
-                    skills
-                })
+                body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&skills=${encodeURIComponent(skills)}`
+            })
+            .then(res => res.text())
+            .then(data => {
+                console.log(data);
+                alert(data);
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Request failed");
             });
+        });
+    }
 
-            let data = await response.text();
-            console.log(data);
-            alert(data);
-
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Request failed (network error)");
-        }
-    });
-}
+});
