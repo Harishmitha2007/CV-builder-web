@@ -12,14 +12,15 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("skills", document.getElementById("skills").value);
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "save.php", true);
+
+        xhr.open("POST", "https://harishmithacv.infinityfreeapp.com/save.php", true);
 
         xhr.onload = function () {
             alert(this.responseText);
         };
 
         xhr.onerror = function () {
-            alert("Server unreachable");
+            alert("Request failed");
         };
 
         xhr.send(formData);
